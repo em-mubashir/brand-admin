@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   listItemRoot: {
     paddingLeft: theme.spacing(4),
     paddingTop: "unset",
-    paddingBottom: "unset"
+    paddingBottom: "unset",
+    
   },
   listItemTextRoot: {
     "paddingTop": theme.spacing(1),

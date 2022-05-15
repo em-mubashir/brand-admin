@@ -38,7 +38,7 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "center",
     marginRight: theme.spacing(2),
-    color: theme.palette.colors.coolGrey300
+    color: theme.palette.colors.white
   },
   iconActive: {
     color: theme.palette.text.active
@@ -64,7 +64,7 @@ const styles = (theme) => ({
     fontSize: theme.typography.fontSize,
     lineHeight: 1.5,
     letterSpacing: 0.5,
-    color: theme.palette.colors.black15
+    color: theme.palette.colors.white
   },
   listItemNested: {
     "paddingTop": 0,
@@ -170,6 +170,7 @@ function Sidebar(props) {
             shouldShowShopName
             size={32}
             viewer={viewer}
+            
           />
 
           <Hidden mdUp>

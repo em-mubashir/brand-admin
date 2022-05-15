@@ -18,23 +18,28 @@ const defaultLogo = "/resources/reaction-logo-circular.svg";
 const styles = (theme) => ({
   root: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    
   },
   logo: {
     marginRight: theme.spacing(2)
   },
   menuItem: {
     "& a span": {
-      color: theme.palette.colors.black90
+      color: theme.palette.colors.white,
+      backgroundColor: theme.palette.colors.black,
+     
     }
   },
   selectMenu: {
     "& a span": {
-      color: theme.palette.colors.black15
+      color: theme.palette.colors.black,
+      
+      
     }
   },
   dummyShopName: {
-    color: theme.palette.colors.black15
+    color: theme.palette.colors.white
   },
   newShopLink: {
     "color": theme.palette.colors.darkBlue,
@@ -44,10 +49,13 @@ const styles = (theme) => ({
   },
   plusIcon: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    color: theme.palette.colors.white,
+    backgroundColor: theme.palette.colors.black,
+
   },
   selectArrow: {
-    color: theme.palette.colors.black15
+    color: theme.palette.colors.white
   }
 });
 
@@ -56,7 +64,7 @@ const ShopSelectorInput = withStyles(() => ({
     "border": "none",
     "&:focus": {
       border: "none",
-      background: "transparent"
+      backgroundColor: "transperent"
     }
   }
 }))(InputBase);
@@ -80,19 +88,20 @@ function ShopSelectorWithData({ className, classes, shouldShowShopName, linkTo, 
         className={classNames(classes.root, className)}
         to={linkTo}
       >
-        <img
+        {/*<img
           alt="Reaction Commerce"
           className={classes.logo}
           src={defaultLogo}
           width={size}
-        />
+    />*/}
         {shouldShowShopName &&
         <Typography
           className={classes.dummyShopName}
           component="span"
-          variant="h3"
+          variant="h4"
+          style={{color:'white'}}
         >
-          Reaction Commerce
+          E-Commerce Store
         </Typography>
         }
       </Link>
@@ -113,16 +122,17 @@ function ShopSelectorWithData({ className, classes, shouldShowShopName, linkTo, 
               className={classNames(classes.root, className)}
               to={linkUrl}
             >
-              <img
+              {/*<img
                 alt={shop.name}
                 className={classes.logo}
                 src={customLogoFromUrlInput || customLogoFromUpload || defaultLogo}
                 width={size}
-              />
+        />*/}
               {shouldShowShopName &&
                 <Typography
-                  variant="h3"
+                  variant="h2"
                   component="span"
+                  style = {{color:'white',alignItems:'center'}}
                 >
                   {shop.name}
                 </Typography>
@@ -142,6 +152,7 @@ function ShopSelectorWithData({ className, classes, shouldShowShopName, linkTo, 
           <Typography
             variant="h3"
             component="span"
+            style = {{color:'white'}}
           >
             New Shop
           </Typography>

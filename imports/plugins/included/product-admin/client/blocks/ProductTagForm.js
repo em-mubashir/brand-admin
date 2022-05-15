@@ -53,6 +53,7 @@ function ProductTagForm() {
 
   return (
     <Card style={{ overflow: "visible" }}>
+      {/*
       <CardHeader
         action={
           <IconButton onClick={() => setTagDialogOpen(true)} title="Add tags">
@@ -74,7 +75,7 @@ function ProductTagForm() {
           productIds={[product._id]}
           shopId={product.shop._id}
         />
-      }
+      }*/}
     </Card>
   );
 }

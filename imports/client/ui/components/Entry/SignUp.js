@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     "display": "flex",
     "flexDirection": "column",
     "& > *": {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
+      color:"white"
     }
   },
   switchEntryMode: {
@@ -28,12 +29,14 @@ const useStyles = makeStyles((theme) => ({
   error: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    color: red[500],
+    color: "white",
     fontSize: "1.1em",
     textAlign: "center"
   },
   signUpButton: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
+    color:"#000",
+    backgroundColor:"white"
   }
 }));
 
@@ -76,18 +79,18 @@ export default function SignUp(props) {
     <form className={classes.root} noValidate>
       <h1>Create your account</h1>
       <FormControl>
-        <InputLabel htmlFor="email">Email</InputLabel>
-        <Input id="email" aria-describedby="email-address" onChange={handleEmailChange} value={email}
-          type="email"
+        <InputLabel htmlFor="email" style={{color:"white"}}>Email</InputLabel>
+        <Input id="email"  aria-describedby="email-address" onChange={handleEmailChange} value={email}
+          type="email" 
         />
       </FormControl>
       <FormControl>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password" aria-describedby="password" onChange={handlePasswordChange} value={password}
+        <InputLabel htmlFor="password" style={{color:"white"}} >Password</InputLabel>
+        <Input id="password" style = {{color:'white' }}  aria-describedby="password" onChange={handlePasswordChange} value={password}
           type="password"
         />
       </FormControl>
-      <Button onClick={registerUser} color="primary" variant="contained" className={classes.signUpButton}>Sign Up</Button>
+      <Button onClick={registerUser}  variant="contained" className={classes.signUpButton}>Sign Up</Button>
       {!!error && <div className={classes.error}>{error}</div>}
       <div className={classes.switchEntryMode} onClick={handleOpenLogIn} onKeyDown={handleOpenLogIn} role="button"
         tabIndex={0}

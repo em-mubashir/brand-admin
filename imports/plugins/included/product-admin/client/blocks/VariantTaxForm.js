@@ -118,7 +118,9 @@ function VariantTaxForm() {
   }
 
   return (
+    
     <Card>
+      {/*
       <CardHeader title={i18next.t("productVariant.taxable")} />
       <CardContent>
         <form
@@ -127,6 +129,7 @@ function VariantTaxForm() {
             submitForm();
           }}
         >
+          
           <Box marginBottom={4}>
             <FormControlLabel
               label={i18next.t("productVariant.taxable")}
@@ -157,8 +160,10 @@ function VariantTaxForm() {
               {i18next.t("app.saveChanges")}
             </Button>
           </Box>
+        
         </form>
       </CardContent>
+        */}
     </Card>
   );
 }

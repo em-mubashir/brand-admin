@@ -176,6 +176,7 @@ function ProductMetadataForm() {
 
   return (
     <Card>
+      {/*
       <CardHeader title={i18next.t("admin.productAdmin.metadata")} />
       <CardContent>
         <Grid
@@ -287,6 +288,7 @@ function ProductMetadataForm() {
           </Button>
         </Box>
       </CardContent>
+            */}
     </Card>
   );
 }

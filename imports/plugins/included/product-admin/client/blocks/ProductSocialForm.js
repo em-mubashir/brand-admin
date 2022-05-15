@@ -125,12 +125,16 @@ const ProductSocialForm = React.forwardRef((props, ref) => {
   }
 
   return (
+    
     <Card className={classes.card} ref={ref}>
+      {/*
       <CardHeader title={i18next.t("social.socialTitle")} />
       <CardContent>
         {content}
       </CardContent>
+      */}
     </Card>
+  
   );
 });
 

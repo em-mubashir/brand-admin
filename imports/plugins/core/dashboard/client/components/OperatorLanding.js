@@ -35,7 +35,7 @@ function OperatorLanding() {
 
   return (
     <Fragment>
-      <Helmet title="Reaction Admin" />
+      <Helmet title="reaction-admin" />
       <Grid
         container
         direction="column"
@@ -43,23 +43,17 @@ function OperatorLanding() {
         alignItems="center"
         spacing={5}
       >
-        <Grid item />
-        <Grid item>
-          <ShopLogoWithData shopId={shopId} size={100} />
-        </Grid>
+        
+         {/*  <ShopLogoWithData shopId={shopId} size={100} />*/}
+       
 
         <Grid item>
-          {viewer ? <Typography align="center" variant="body1">Use Reaction Admin to manage
-            <Link to={`/${shopId}/orders`}>Orders</Link>, <Link to={`/${shopId}/products`}>Products</Link>,
-            <Link to={`/${shopId}/tags`}>Tags</Link>, <Link to={`/${shopId}/accounts`}>Accounts</Link>, and
-            <Link to={`/${shopId}/navigation`}>Navigation</Link>, or change shop settings</Typography> :
+          {viewer ? <Typography align="center" variant="body1">Use Admin to manage
+            {/*<Link to={`/${shopId}/orders`}>Orders</Link>,*/} <Link to={`/${shopId}/products`}>Products</Link>
+            {/*<Link to={`/${shopId}/tags`}>Tags</Link>,*/} <Link to={`/${shopId}/accounts`}>and accounts</Link>
+            {/*<Link to={`/${shopId}/navigation`}>Navigation</Link>,*/} </Typography> :
             <Typography align="center" variant="body1">Create your first user using the "Create Account"
               function in the upper right or just Log in</Typography>}
-        </Grid>
-        <Grid item>
-          <Typography align="center" variant="body1">
-            See our <MuiLink href="https://mailchimp.com/developer/open-commerce/docs/creating-organizing-products/">Mailchimp Developer Documentation</MuiLink> for more information on how to set up your store.
-          </Typography>
         </Grid>
       </Grid>
     </Fragment>

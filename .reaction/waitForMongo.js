@@ -153,7 +153,6 @@ if (require.main === module) {
   process.on("unhandledRejection", exit);
   main().catch(exit);
 }
-
 module.exports = {
   checkWaitRetry
 };

@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
     "display": "flex",
     "flexDirection": "column",
     "& > *": {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
+       color:"white"
+      
     }
   },
   forgotPassword: {
@@ -24,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "italic",
     cursor: "pointer",
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    color:"white"
   },
   switchEntryMode: {
     textAlign: "center",
@@ -33,10 +36,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
   },
+  signInButton: {
+    marginTop: theme.spacing(4),
+    color:"#000",
+    backgroundColor:"white"
+  },
   error: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    color: red[500],
+    color: "white",
     fontSize: "1.1em",
     textAlign: "center"
   }
@@ -89,21 +97,21 @@ export default function Login(props) {
     <form className={classes.root} noValidate>
       <h1>Sign in to your account</h1>
       <FormControl>
-        <InputLabel htmlFor="email">Email</InputLabel>
+        <InputLabel htmlFor="email" style={{color:"white"}}>Email</InputLabel>
         <Input id="email" aria-describedby="email-address" onChange={handleEmailChange} value={email}
           type="email"
         />
       </FormControl>
       <FormControl>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password" aria-describedby="password" onChange={handlePasswordChange} value={password}
+        <InputLabel htmlFor="password" style={{color:"white"}}>Password</InputLabel>
+        <Input id="password" style = {{color:'white' }} aria-describedby="password" onChange={handlePasswordChange} value={password}
           type="password"
         />
       </FormControl>
       <div className={classes.forgotPassword} onClick={handleForgotPasswordClick} onKeyDown={handleForgotPasswordClick} role="button"
         tabIndex={0}
       >Forgot Password?</div>
-      <Button onClick={registerUser} color="primary" variant="contained">Sign In</Button>
+      <Button onClick={registerUser} color="white"  variant="contained" className={classes.signInButton}>Sign In</Button>
       {!!error && <div className={classes.error}>{error}</div>}
       <div className={classes.switchEntryMode} onClick={handleOpenSignUp} onKeyDown={handleOpenSignUp} role="button"
         tabIndex={0}

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1)
   },
   isHidden: {
-    color: theme.palette.colors.black40,
+    color: theme.palette.colors.black,
     fontSize: theme.typography.fontSize * 1.25,
     marginRight: theme.spacing(1)
   }

@@ -34,7 +34,7 @@ function ProductToolbar() {
       <Box display="flex" alignItems="center">
         {currentProductHash !== publishedProductHash &&
           <Box paddingRight={2}>
-            <Typography>{"Product has unpublished changes"}</Typography>
+            <Typography style={{color:'#000000'}}>{"Product has unpublished changes"}</Typography>
           </Box>
         }
         <Button

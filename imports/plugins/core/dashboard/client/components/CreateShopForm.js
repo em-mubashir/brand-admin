@@ -10,7 +10,12 @@ import useReactoForm from "reacto-form/cjs/useReactoForm";
 const useStyles = makeStyles((theme) => ({
   textField: {
     marginBottom: theme.spacing(4),
-    minWidth: 350
+    minWidth: 350,
+  },
+  mybtn:
+  {
+    color:"white",
+    backgroundColor:"#000000"
   }
 }));
 
@@ -61,7 +66,7 @@ function CreateShopForm(props) {
         {...getInputProps("name", muiOptions)}
       />
       <Button
-        color="primary"
+        className={classes.mybtn}
         fullWidth
         disabled={isSubmitting}
         onClick={submitForm}

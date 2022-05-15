@@ -172,10 +172,10 @@ function VariantInventoryForm() {
   }
 
   return (
-    <Card>
-      <CardHeader title={i18next.t("productVariant.inventoryHeading")} />
-      <CardContent>{content}</CardContent>
-    </Card>
+   <Card>
+      {/*<CardHeader title={i18next.t("productVariant.inventoryHeading")} />
+        <CardContent>{content}</CardContent>*/}
+  </Card>
   );
 }
 

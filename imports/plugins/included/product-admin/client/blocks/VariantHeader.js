@@ -26,7 +26,7 @@ function VariantHeader() {
     return null;
   }
 
-  const defaultTitle = option ? "Untitled Option" : "Untitled Variant";
+  const defaultTitle = option ? "Untitled Option" : "Product";
 
   return (
     <Box paddingTop={2} paddingBottom={2}>

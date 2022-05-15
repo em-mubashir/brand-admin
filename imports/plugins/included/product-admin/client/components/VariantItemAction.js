@@ -49,7 +49,7 @@ function VariantItemAction(props) {
         open={isOpen}
         onClose={handleClose}
       >
-        {!option && [
+        {/*{!option && [
           <MenuItem
             key="create-variant"
             onClick={async () => {
@@ -63,7 +63,7 @@ function VariantItemAction(props) {
             {i18next.t("variantList.createVariant")}
           </MenuItem>,
           <Divider key="create-variant-divider" />
-        ]}
+        ]}*/}
         <MenuItem
           onClick={() => {
             onToggleVariantVisibility({

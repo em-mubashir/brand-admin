@@ -92,7 +92,7 @@ class NavigationDashboard extends Component {
 
     return (
       <>
-        <ContentViewPrimaryDetailLayout
+       {/*  <ContentViewPrimaryDetailLayout
           AppBarComponent={
             <PrimaryAppBar title="Main Navigation">
               <Button color="primary" onClick={onDiscardNavigationTreeChanges}>Discard</Button>
@@ -113,7 +113,7 @@ class NavigationDashboard extends Component {
               onClickUpdateNavigationItem={this.updateNavigationItem}
             />
           }
-        />
+        />*/}
         <Dialog
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"

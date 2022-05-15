@@ -437,7 +437,7 @@ function ProductsTable() {
 
   return (
     <Grid container spacing={3}>
-      <FilterByFileCard
+      {/*<FilterByFileCard
         isFilterByFileVisible={isFilterByFileVisible}
         files={files}
         getInputProps={getInputProps}
@@ -451,7 +451,7 @@ function ProductsTable() {
         setVisibility={setTagSelectorVisibility}
         selectedProductIds={selectedRows}
         shopId={shopId}
-      />
+  />*/}
       { (!isTagSelectorVisible && !isFilterByFileVisible) &&
         <Grid item sm={12}>
           <Button color="primary" variant="contained" onClick={handleCreateProduct}>
@@ -461,7 +461,7 @@ function ProductsTable() {
       }
       <Grid item sm={12}>
         <Card className={classes.card}>
-          <CardHeader classes={{ root: classes.cardHeader }} title={cardTitle} />
+         <CardHeader classes={{ root: classes.cardHeader }} title={cardTitle} />
           <CardContent>
             <DataTable
               {...dataTableProps}

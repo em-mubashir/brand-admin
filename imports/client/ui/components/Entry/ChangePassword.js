@@ -16,17 +16,20 @@ const useStyles = makeStyles((theme) => ({
     "display": "flex",
     "flexDirection": "column",
     "& > *": {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
+      color:"white"
     }
   },
   error: {
     marginTop: theme.spacing(2),
-    color: red[500],
+    color: "white",
     fontSize: "1.1em",
     textAlign: "center"
   },
   resetButton: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
+    color:"#000",
+    backgroundColor:"white"
   }
 }));
 
@@ -62,14 +65,14 @@ export default function ChangePassword(props) {
     <form className={classes.root} noValidate>
       <h1>Change password</h1>
       <FormControl>
-        <InputLabel htmlFor="old-password">Old Password</InputLabel>
-        <Input id="old-password" aria-describedby="old-password" onChange={handleOldPasswordChange} value={oldPassword}
+        <InputLabel htmlFor="old-password" style={{color:"white"}}>Old Password</InputLabel>
+        <Input id="old-password" style = {{color:'white' }} aria-describedby="old-password" onChange={handleOldPasswordChange} value={oldPassword}
           type="password"
         />
       </FormControl>
       <FormControl>
-        <InputLabel htmlFor="new-password">New Password</InputLabel>
-        <Input id="new-password" aria-describedby="new-password" onChange={handleNewPasswordChange} value={newPassword}
+        <InputLabel htmlFor="new-password" style={{color:"white"}}>New Password</InputLabel>
+        <Input id="new-password" style = {{color:'white' }}  aria-describedby="new-password" onChange={handleNewPasswordChange} value={newPassword}
           type="password"
         />
       </FormControl>

@@ -146,7 +146,7 @@ function ProductHeader({ shouldDisplayStatus }) {
         open={Boolean(menuAnchorEl)}
         onClose={() => setMenuAnchorEl(null)}
       >
-        <MenuItem
+        {/*<MenuItem
           onClick={async () => {
             await onCreateVariant({
               parentId: product._id,
@@ -156,7 +156,7 @@ function ProductHeader({ shouldDisplayStatus }) {
           }}
         >
           {i18next.t("variantList.createVariant")}
-        </MenuItem>
+        </MenuItem>*/}
         <Divider />
         <MenuItem
           onClick={() => {

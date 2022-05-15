@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     "display": "flex",
     "flexDirection": "column",
     "& > *": {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
+      color:"white"
     }
   },
   switchEntryMode: {
@@ -27,12 +28,14 @@ const useStyles = makeStyles((theme) => ({
   error: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    color: red[500],
+    color:"white",
     fontSize: "1.1em",
     textAlign: "center"
   },
   sendButton: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
+    color:"#000",
+    backgroundColor:"white"
   }
 }));
 
@@ -67,7 +70,7 @@ export default function ForgotPassword(props) {
     <form className={classes.root} noValidate>
       <h1>Forgot password</h1>
       <FormControl>
-        <InputLabel htmlFor="email">Email</InputLabel>
+        <InputLabel htmlFor="email" style={{color:"white"}}>Email</InputLabel>
         <Input id="email" aria-describedby="email" onChange={handleChangeEmail} value={email}
           type="email"
         />

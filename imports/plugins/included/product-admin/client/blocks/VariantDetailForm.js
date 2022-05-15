@@ -126,7 +126,7 @@ const VariantDetailForm = React.forwardRef((props, ref) => {
             placeholder={i18next.t("admin.productVariant.attributeLabelPlaceholder")}
             {...getInputProps("attributeLabel", muiOptions)}
           />
-
+         {/*
           <TextField
             className={classes.textField}
             error={hasErrors(["optionTitle"])}
@@ -166,11 +166,13 @@ const VariantDetailForm = React.forwardRef((props, ref) => {
               </MenuItem>
             ))}
           </TextField>
+            */}
           <Box paddingBottom={4}>
             <Divider />
           </Box>
           <Grid container spacing={1}>
             <Grid item sm={6}>
+              {/*
               <TextField
                 className={classes.textField}
                 error={hasErrors(["width"])}
@@ -216,6 +218,7 @@ const VariantDetailForm = React.forwardRef((props, ref) => {
                 placeholder="0"
                 {...getInputProps("weight", muiOptions)}
               />
+          */}
             </Grid>
           </Grid>
 

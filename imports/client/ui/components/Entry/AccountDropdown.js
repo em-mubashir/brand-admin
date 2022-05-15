@@ -30,10 +30,19 @@ function useQuery() {
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
     width: 320,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    backgroundColor:"#000"
   },
+  
   marginBottom: {
     marginBottom: theme.spacing(2)
+  },
+  signOutButton:{
+    color:"#000",
+    backgroundColor:"white"
+  },
+  signButton:{
+    color:"white"
   },
   paper: {
     position: "absolute",
@@ -47,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor:"#000"
   }
 }));
 
@@ -136,30 +146,30 @@ const AccountDropdown = (props) => {
             <Fragment>
               <div className={classes.marginBottom}>
                 <Link href={`/${shopId}/profile`}>
-                  <Button color="primary" fullWidth>
+                  <Button color="primary" fullWidth className={classes.signButton}>
                     {i18next.t("admin.userAccountDropdown.profileLabel")}
                   </Button>
                 </Link>
               </div>
               <div className={classes.marginBottom}>
-                <Button color="primary" fullWidth onClick={() => openModal("change-password")}>
+                <Button color="primary" fullWidth onClick={() => openModal("change-password")} className={classes.signButton}>
                   Change Password
                 </Button>
               </div>
-              <Button color="primary" fullWidth onClick={handleSignOut} variant="contained">
+              <Button color="primary" fullWidth onClick={handleSignOut} variant="contained" className={classes.signOutButton}>
                 Sign Out
               </Button>
             </Fragment>
           ) : (
             <Fragment>
               <div className={classes.authContent}>
-                <Button color="primary" fullWidth variant="contained" onClick={() => openModal("login")}>
+                <Button color="white" fullWidth variant="contained" onClick={() => openModal("login")}>
                   Sign In
                 </Button>
-              </div>
-              <Button color="primary" fullWidth onClick={() => openModal("signup")}>
+              <Button color="white" fullWidth variant="contained" onClick={() => openModal("signup")}>
                 Create Account
               </Button>
+              </div>
             </Fragment>
           )}
         </div>

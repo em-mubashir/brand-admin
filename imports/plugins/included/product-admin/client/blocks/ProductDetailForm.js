@@ -142,6 +142,7 @@ const ProductDetailForm = React.forwardRef((props, ref) => {
           label={i18next.t("productDetailEdit.title")}
           {...getInputProps("title", muiOptions)}
         />
+        {/*
         <TextField
           className={classes.textField}
           error={hasErrors(["slug"])}
@@ -198,6 +199,7 @@ const ProductDetailForm = React.forwardRef((props, ref) => {
           control={<Checkbox />}
           {...getInputProps("shouldAppearInSitemap", muiCheckboxOptions)}
         />
+          */}
         <Box textAlign="right">
           <Button
             color="primary"

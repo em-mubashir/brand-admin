@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.trailingPaddingWhenDetailDrawerIsOpen
   },
   title: {
-    flex: 1
+    flex: 1,
+    color:"white"
   }
 }));
 

@@ -25,6 +25,7 @@ function VariantMediaForm() {
 
   return (
     <Card>
+      {/*
       <CardHeader title={i18next.t("admin.productAdmin.mediaGallery")} />
       <CardContent>
         <ProductMediaGallery
@@ -35,6 +36,7 @@ function VariantMediaForm() {
           shopId={shopId}
         />
       </CardContent>
+  */}
     </Card>
   );
 }

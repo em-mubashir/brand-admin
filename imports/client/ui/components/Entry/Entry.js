@@ -22,11 +22,14 @@ const styles = (theme) => ({
     [theme.breakpoints.up("md")]: {
       minHeight: "400px",
       paddingBottom: 0,
-      paddingRight: theme.spacing(8)
+      paddingRight: theme.spacing(8),
+      
     }
   },
   loginButton: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
+    color:"#000",
+    backgroundColor:"white"
   },
   guestWrapper: {
     ...flexWrapper(),
@@ -47,7 +50,7 @@ const Entry = (props) => {
     <Grid container>
       <Grid item xs={12} md={7}>
         <div className={classes.loginWrapper}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" color="#000" gutterBottom>
             Returning Customer
           </Typography>
           <Button onClick={onLoginButtonClick} actionType="important" isFullWidth className={classes.loginButton}>
