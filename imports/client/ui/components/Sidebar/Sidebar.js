@@ -120,6 +120,9 @@ function Sidebar(props) {
 
   let list;
   if (!isAppLoading && currentShopId) {
+    {
+      console.log("primaryRoutes", primaryRoutes);
+    }
     list = (
       <List disablePadding>
         {primaryRoutes.map((route) => (
@@ -137,7 +140,7 @@ function Sidebar(props) {
             route.sidebarI18nLabel !== "admin.shortcut.discountsLabel" &&
             route.sidebarI18nLabel !== "admin.navigation.navigation" &&
             route.sidebarI18nLabel !== "admin.tags.tags" &&
-            route.sidebarI18nLabel !== "admin.dashboard.ordersLabel" ? (
+            route.sidebarI18nLabel !== "admin.accounts.accountsLabel" ? (
               <ListItem button className={classes.listItem}>
                 <ListItemIcon className={classes.icon}>
                   {route.SidebarIconComponent && <route.SidebarIconComponent />}
