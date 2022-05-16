@@ -23,67 +23,67 @@ const activeClassName = "nav-item-active";
 
 const styles = (theme) => ({
   closeButton: {
-    "color": theme.palette.colors.white,
-    "backgroundColor": theme.palette.colors.darkBlue500,
+    color: theme.palette.colors.white,
+    backgroundColor: theme.palette.colors.darkBlue500,
     "&:hover": {
-      "backgroundColor": theme.palette.colors.darkBlue600,
+      backgroundColor: theme.palette.colors.darkBlue600,
       // Reset on touch devices, it doesn't add specificity
       "@media (hover: none)": {
-        backgroundColor: theme.palette.colors.darkBlue500
-      }
-    }
+        backgroundColor: theme.palette.colors.darkBlue500,
+      },
+    },
   },
   icon: {
     minWidth: 32,
     display: "flex",
     justifyContent: "center",
     marginRight: theme.spacing(2),
-    color: theme.palette.colors.white
+    color: theme.palette.colors.white,
   },
   iconActive: {
-    color: theme.palette.text.active
+    color: theme.palette.text.active,
   },
   shopLogo: {
     flex: 1,
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   toolbar: {
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
+    paddingRight: theme.spacing(2),
   },
   listItem: {
-    "paddingLeft": theme.spacing(2),
-    "paddingRight": theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     "&:hover": {
       backgroundColor: theme.palette.colors.darkBlue600,
-      transition: `background-color ${theme.transitions.duration.shortest} ${theme.transitions.easing.easeInOut}`
-    }
+      transition: `background-color ${theme.transitions.duration.shortest} ${theme.transitions.easing.easeInOut}`,
+    },
   },
   listItemText: {
     paddingLeft: 0,
     fontSize: theme.typography.fontSize,
     lineHeight: 1.5,
     letterSpacing: 0.5,
-    color: theme.palette.colors.white
+    color: theme.palette.colors.white,
   },
   listItemNested: {
-    "paddingTop": 0,
-    "paddingBottom": 0,
-    "paddingLeft": theme.spacing(8),
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: theme.spacing(8),
     "&:hover": {
       backgroundColor: theme.palette.colors.darkBlue600,
-      transition: `background-color ${theme.transitions.duration.shortest} ${theme.transitions.easing.easeInOut}`
-    }
+      transition: `background-color ${theme.transitions.duration.shortest} ${theme.transitions.easing.easeInOut}`,
+    },
   },
   link: {
     [`&.${activeClassName} span`]: {
       color: theme.palette.text.secondaryActive,
-      fontWeight: theme.typography.fontWeightSemiBold
+      fontWeight: theme.typography.fontWeightSemiBold,
     },
     [`&.${activeClassName} $icon`]: {
-      color: theme.palette.text.active
-    }
-  }
+      color: theme.palette.text.active,
+    },
+  },
 });
 
 /**
@@ -92,14 +92,7 @@ const styles = (theme) => ({
  * @returns {React.Component} Sidebar component
  */
 function Sidebar(props) {
-  const {
-    classes,
-    isMobile,
-    isSidebarOpen,
-    onDrawerClose,
-    setIsSettingsOpen,
-    viewer
-  } = props;
+  const { classes, isMobile, isSidebarOpen, onDrawerClose, setIsSettingsOpen, viewer } = props;
 
   const [isAppLoading] = useIsAppLoading();
   const [currentShopId] = useCurrentShopId();
@@ -107,10 +100,10 @@ function Sidebar(props) {
 
   let drawerProps = {
     classes: {
-      paper: classes.drawerPaper
+      paper: classes.drawerPaper,
     },
     open: true,
-    variant: "persistent"
+    variant: "persistent",
   };
 
   if (isMobile) {
@@ -120,8 +113,8 @@ function Sidebar(props) {
       open: isSidebarOpen,
       onClose: onDrawerClose,
       ModalProps: {
-        keepMounted: true // Better open performance on mobile.
-      }
+        keepMounted: true, // Better open performance on mobile.
+      },
     };
   }
 
@@ -140,17 +133,22 @@ function Sidebar(props) {
               onDrawerClose();
             }}
           >
-            <ListItem button className={classes.listItem}>
-              <ListItemIcon className={classes.icon}>
-                {route.SidebarIconComponent && <route.SidebarIconComponent />}
-              </ListItemIcon>
-              <ListItemText
-                disableTypography
-                className={classes.listItemText}
-              >
-                <Translation defaultValue="" i18nKey={route.sidebarI18nLabel} />
-              </ListItemText>
-            </ListItem>
+            {route.sidebarI18nLabel !== "admin.settings.settingsLabel" &&
+            route.sidebarI18nLabel !== "admin.shortcut.discountsLabel" &&
+            route.sidebarI18nLabel !== "admin.navigation.navigation" &&
+            route.sidebarI18nLabel !== "admin.tags.tags" &&
+            route.sidebarI18nLabel !== "admin.dashboard.ordersLabel" ? (
+              <ListItem button className={classes.listItem}>
+                <ListItemIcon className={classes.icon}>
+                  {route.SidebarIconComponent && <route.SidebarIconComponent />}
+                </ListItemIcon>
+                <ListItemText disableTypography className={classes.listItemText}>
+                  <Translation defaultValue="" i18nKey={route.sidebarI18nLabel} />
+                </ListItemText>
+              </ListItem>
+            ) : (
+              ""
+            )}
           </NavLink>
         ))}
       </List>
@@ -159,26 +157,15 @@ function Sidebar(props) {
 
   return (
     <Drawer {...drawerProps}>
-      <AppBar
-        color="secondary"
-        elevation={0}
-        position="sticky"
-      >
+      <AppBar color="secondary" elevation={0} position="sticky">
         <Toolbar className={classes.toolbar}>
-          <ShopSelectorWithData
-            className={classes.shopLogo}
-            shouldShowShopName
-            size={32}
-            viewer={viewer}
-            
-          />
+          <ShopSelectorWithData className={classes.shopLogo} shouldShowShopName size={32} viewer={viewer} />
 
           <Hidden mdUp>
             <Fab classes={{ root: classes.closeButton }} onClick={onDrawerClose} size="small">
               <CloseIcon />
             </Fab>
           </Hidden>
-
         </Toolbar>
       </AppBar>
       {list}
@@ -189,17 +176,17 @@ function Sidebar(props) {
 Sidebar.propTypes = {
   classes: PropTypes.object,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired,
   }),
   isMobile: PropTypes.bool,
   isSidebarOpen: PropTypes.bool.isRequired,
   onDrawerClose: PropTypes.func.isRequired,
   setIsSettingsOpen: PropTypes.func.isRequired,
-  viewer: PropTypes.object
+  viewer: PropTypes.object,
 };
 
 Sidebar.defaultProps = {
-  setIsSidebarOpen() {}
+  setIsSidebarOpen() {},
 };
 
 export default compose(

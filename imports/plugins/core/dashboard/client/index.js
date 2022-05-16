@@ -27,14 +27,14 @@ registerOperatorRoute({
   // We don't want a `/:shopId/new-shop` route created
   createRouteWithPrefix: false,
   path: "/new-shop",
-  MainComponent: CreateShopForm
+  MainComponent: CreateShopForm,
 });
 
 // Default landing page. Will create `/` as well as `/:shopId` automatically.
 registerOperatorRoute({
   createRouteWithNoPrefix: true,
   path: "/",
-  MainComponent: OperatorLanding
+  MainComponent: OperatorLanding,
 });
 
 registerOperatorRoute({
@@ -46,7 +46,7 @@ registerOperatorRoute({
   MainComponent: SettingsDashboard,
   // eslint-disable-next-line react/display-name
   SidebarIconComponent: SettingsIcon,
-  sidebarI18nLabel: "admin.settings.settingsLabel"
+  sidebarI18nLabel: "admin.settings.settingsLabel",
 });
 
 // Shop settings region
@@ -55,7 +55,7 @@ registerOperatorRoute({
   MainComponent: ShopSettingsRegion,
   priority: 110,
   path: "/settings/shop",
-  sidebarI18nLabel: "admin.settings.shopSettingsLabel"
+  sidebarI18nLabel: "admin.settings.shopSettingsLabel",
 });
 
 registerOperatorRoute({
@@ -63,7 +63,7 @@ registerOperatorRoute({
   MainComponent: SystemSettingsRegion,
   path: "/settings/system",
   priority: 300,
-  sidebarI18nLabel: "shopSettings.systemInfo.title"
+  sidebarI18nLabel: "shopSettings.systemInfo.title",
 });
 
 // Settings blocks
@@ -71,28 +71,28 @@ registerBlock({
   region: "ShopSettings",
   name: "ShopSettingsGeneral",
   component: ShopSettingsForm,
-  priority: 1
+  priority: 1,
 });
 
 registerBlock({
   region: "ShopSettings",
   name: "ShopAddress",
   component: ShopAddressSettings,
-  priority: 2
+  priority: 2,
 });
 
 registerBlock({
   region: "ShopSettings",
   name: "ShopLogoUrls",
   component: ShopLogoUrls,
-  priority: 3
+  priority: 3,
 });
 
 registerBlock({
   region: "EmailSettings",
   name: "StorefrontUrls",
   component: StorefrontUrls,
-  priority: 2
+  priority: 2,
 });
 
 // System settings blocks
@@ -100,5 +100,5 @@ registerBlock({
   region: "SystemSettings",
   name: "SystemSettingsGeneral",
   component: SystemInformation,
-  priority: 1
+  priority: 1,
 });

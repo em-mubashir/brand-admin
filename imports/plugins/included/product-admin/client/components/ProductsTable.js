@@ -26,15 +26,15 @@ import TagSelector from "./TagSelector";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    overflow: "visible"
+    overflow: "visible",
   },
   cardHeader: {
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   selectedProducts: {
     fontWeight: 400,
-    marginLeft: theme.spacing(1)
-  }
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 const CSV_FILE_TYPES = [
@@ -46,7 +46,7 @@ const CSV_FILE_TYPES = [
   "application/x-csv",
   "text/comma-separated-values",
   "text/x-comma-separated-values",
-  "text/tab-separated-values"
+  "text/tab-separated-values",
 ];
 
 /**
@@ -76,96 +76,107 @@ function ProductsTable() {
   const [isTagSelectorVisible, setTagSelectorVisibility] = useState(false);
 
   // Create and memoize the column data
-  const columns = useMemo(() => [
-    {
-      Header: "",
-      accessor: "original.media[0].URLs.thumbnail",
-      cellProps: () => ({
-        style: {
-          paddingLeft: 0,
-          paddingRight: 0
-        }
-      }),
-      // eslint-disable-next-line react/no-multi-comp,react/display-name,react/prop-types
-      Cell: ({ row }) => <MediaCell row={row} />
-    },
-    {
-      Header: i18next.t("admin.productTable.header.product"),
-      accessor: "title"
-    },
-    {
-      Header: i18next.t("admin.productTable.header.id"),
-      accessor: (row) => {
-        const { id: productId } = decodeOpaqueId(row._id);
-        return productId;
+  const columns = useMemo(
+    () => [
+      {
+        Header: "",
+        accessor: "original.media[0].URLs.thumbnail",
+        cellProps: () => ({
+          style: {
+            paddingLeft: 0,
+            paddingRight: 0,
+          },
+        }),
+        // eslint-disable-next-line react/no-multi-comp,react/display-name,react/prop-types
+        Cell: ({ row }) => <MediaCell row={row} />,
       },
-      id: "_id"
-    },
-    {
-      Header: i18next.t("admin.productTable.header.price"),
-      accessor: "pricing.displayPrice"
-    },
-    {
-      Header: i18next.t("admin.productTable.header.published"),
-      // eslint-disable-next-line react/no-multi-comp,react/display-name,react/prop-types
-      Cell: ({ row }) => <PublishedStatusCell row={row} />
-    },
-    {
-      Header: i18next.t("admin.productTable.header.visible"),
-      // eslint-disable-next-line react/no-multi-comp,react/display-name,react/prop-types
-      Cell: ({ row }) => <StatusIconCell row={row} />,
-      id: "isVisible"
-    }
-  ], []);
-
-
-  const onFetchData = useCallback(async ({ globalFilter, manualFilters, pageIndex, pageSize }) => {
-    // Wait for shop id to be available before fetching products.
-    setIsLoading(true);
-    if (!shopId) {
-      return;
-    }
-
-    const filterByProductIds = {};
-    if (manualFilters.length) {
-      filterByProductIds.productIds = manualFilters[0].value.map((id) => encodeOpaqueId("reaction/product", id));
-      // Reset uploaded files
-      setFiles([]);
-    }
-
-    const { data } = await apolloClient.query({
-      query: productsQuery,
-      variables: {
-        shopIds: [shopId],
-        ...filterByProductIds,
-        query: globalFilter,
-        first: pageSize,
-        limit: (pageIndex + 1) * pageSize,
-        offset: pageIndex * pageSize
+      {
+        Header: i18next.t("admin.productTable.header.product"),
+        accessor: "title",
       },
-      fetchPolicy: "network-only"
-    });
+      {
+        Header: i18next.t("admin.productTable.header.id"),
+        accessor: (row) => {
+          const { id: productId } = decodeOpaqueId(row._id);
+          return productId;
+        },
+        id: "_id",
+      },
+      {
+        Header: i18next.t("admin.productTable.header.price"),
+        accessor: "pricing.displayPrice",
+      },
+      {
+        Header: i18next.t("admin.productTable.header.published"),
+        // eslint-disable-next-line react/no-multi-comp,react/display-name,react/prop-types
+        Cell: ({ row }) => <PublishedStatusCell row={row} />,
+      },
+      {
+        Header: i18next.t("admin.productTable.header.visible"),
+        // eslint-disable-next-line react/no-multi-comp,react/display-name,react/prop-types
+        Cell: ({ row }) => <StatusIconCell row={row} />,
+        id: "isVisible",
+      },
+    ],
+    []
+  );
 
-    // Update the state with the fetched data as an array of objects and the calculated page count
-    setTableData(data.products.nodes);
-    setPageCount(Math.ceil(data.products.totalCount / pageSize));
+  const onFetchData = useCallback(
+    async ({ globalFilter, manualFilters, pageIndex, pageSize }) => {
+      // Wait for shop id to be available before fetching products.
+      setIsLoading(true);
+      if (!shopId) {
+        return;
+      }
 
-    setIsLoading(false);
-  }, [apolloClient, shopId]);
+      const filterByProductIds = {};
+      if (manualFilters.length) {
+        filterByProductIds.productIds = manualFilters[0].value.map((id) => encodeOpaqueId("reaction/product", id));
+        // Reset uploaded files
+        setFiles([]);
+      }
+
+      const { data } = await apolloClient.query({
+        query: productsQuery,
+        variables: {
+          shopIds: [shopId],
+          ...filterByProductIds,
+          query: globalFilter,
+          first: pageSize,
+          limit: (pageIndex + 1) * pageSize,
+          offset: pageIndex * pageSize,
+        },
+        fetchPolicy: "network-only",
+      });
+
+      // Update the state with the fetched data as an array of objects and the calculated page count
+      setTableData(data.products.nodes);
+      setPageCount(Math.ceil(data.products.totalCount / pageSize));
+
+      setIsLoading(false);
+    },
+    [apolloClient, shopId]
+  );
 
   // Row click callback
-  const onRowClick = useCallback(async ({ row }) => {
-    const href = getPDPUrl({ productId: row.original._id, shopId: row.original.shop._id });
-    history.push(href);
-  }, [history]);
+  const onRowClick = useCallback(
+    async ({ row }) => {
+      const href = getPDPUrl({ productId: row.original._id, shopId: row.original.shop._id });
+      history.push(href);
+    },
+    [history]
+  );
 
   const onRowSelect = useCallback(async ({ selectedRows: rows }) => {
     setSelectedRows(rows || []);
   }, []);
 
-  const labels = useMemo(() => ({
-    globalFilterPlaceholder: i18next.t("admin.productTable.filters.placeholder")
-  }), []);
+  const labels = useMemo(
+    () => ({
+      globalFilterPlaceholder: i18next.t("admin.productTable.filters.placeholder"),
+    }),
+    []
+  );
 
   const dataTableProps = useDataTable({
     columns,
@@ -175,7 +186,7 @@ function ProductsTable() {
     onFetchData,
     onRowClick,
     onRowSelect,
-    getRowId: (row) => row._id
+    getRowId: (row) => row._id,
   });
 
   const { refetch, setManualFilters } = dataTableProps;
@@ -189,7 +200,9 @@ function ProductsTable() {
     const { data } = await createProduct({ variables: { input: { shopId } } });
 
     if (data) {
-      const { createProduct: { product } } = data;
+      const {
+        createProduct: { product },
+      } = data;
       history.push(`/${shopId}/products/${product._id}`);
     }
 
@@ -204,7 +217,7 @@ function ProductsTable() {
     disableClick: true,
     disablePreview: true,
     multiple: false,
-    onDrop
+    onDrop,
   });
 
   const importFiles = (newFiles) => {
@@ -220,12 +233,12 @@ function ProductsTable() {
         parse(reader.result, {
           trim: true,
           // eslint-disable-next-line camelcase
-          skip_empty_lines: true
+          skip_empty_lines: true,
         })
           .on("readable", function () {
             let record;
             // eslint-disable-next-line no-cond-assign
-            while (record = this.read()) {
+            while ((record = this.read())) {
               output.push(record);
             }
           })
@@ -255,183 +268,199 @@ function ProductsTable() {
   };
 
   // Create options for the built-in ActionMenu in the DataTable
-  const options = useMemo(() => [{
-    label: i18next.t("admin.productTable.bulkActions.filterByFile"),
-    onClick: () => {
-      if (isTagSelectorVisible) setTagSelectorVisibility(false);
-      setFilterByFileVisible(true);
-    }
-  }, {
-    label: i18next.t("admin.productTable.bulkActions.addRemoveTags"),
-    isDisabled: selectedRows.length === 0,
-    onClick: () => {
-      if (isFilterByFileVisible) setFilterByFileVisible(false);
-      setTagSelectorVisibility(true);
-    }
-  },
-  {
-    label: i18next.t("admin.productTable.bulkActions.publish"),
-    confirmTitle: getTranslation("admin.productTable.bulkActions.publishTitle", { count: selectedRows.length }),
-    confirmMessage: getTranslation("admin.productTable.bulkActions.publishMessage", { count: selectedRows.length }),
-    isDisabled: selectedRows.length === 0,
-    onClick: async () => {
-      const { data, error } = await apolloClient.mutate({
-        mutation: publishProductsToCatalog,
-        variables: {
-          productIds: selectedRows
-        }
-      });
+  const options = useMemo(
+    () => [
+      {
+        label: i18next.t("admin.productTable.bulkActions.filterByFile"),
+        onClick: () => {
+          if (isTagSelectorVisible) setTagSelectorVisibility(false);
+          setFilterByFileVisible(true);
+        },
+      },
+      {
+        label: i18next.t("admin.productTable.bulkActions.addRemoveTags"),
+        isDisabled: selectedRows.length === 0,
+        onClick: () => {
+          if (isFilterByFileVisible) setFilterByFileVisible(false);
+          setTagSelectorVisibility(true);
+        },
+      },
+      {
+        label: i18next.t("admin.productTable.bulkActions.publish"),
+        confirmTitle: getTranslation("admin.productTable.bulkActions.publishTitle", { count: selectedRows.length }),
+        confirmMessage: getTranslation("admin.productTable.bulkActions.publishMessage", { count: selectedRows.length }),
+        isDisabled: selectedRows.length === 0,
+        onClick: async () => {
+          const { data, error } = await apolloClient.mutate({
+            mutation: publishProductsToCatalog,
+            variables: {
+              productIds: selectedRows,
+            },
+          });
 
-      if (error && error.length) {
-        enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
-        return;
-      }
+          if (error && error.length) {
+            enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
+            return;
+          }
 
-      refetch();
-      enqueueSnackbar(getTranslation(
-        "admin.productTable.bulkActions.published",
-        { count: data.publishProductsToCatalog.length }
-      ));
-    }
-  }, {
-    label: i18next.t("admin.productTable.bulkActions.makeVisible"),
-    confirmTitle: getTranslation("admin.productTable.bulkActions.makeVisibleTitle", { count: selectedRows.length }),
-    confirmMessage: getTranslation("admin.productTable.bulkActions.makeVisibleMessage", { count: selectedRows.length }),
-    isDisabled: selectedRows.length === 0,
-    onClick: async () => {
-      const errors = [];
-      const successes = [];
-      // TODO: refactor this loop to use a bulk update mutation that needs to be implemented.
-      for (const productId of selectedRows) {
-        // eslint-disable-next-line no-await-in-loop
-        const { data, error } = await apolloClient.mutate({
-          mutation: updateProduct,
-          variables: {
-            input: {
-              product: {
-                isVisible: true
+          refetch();
+          enqueueSnackbar(
+            getTranslation("admin.productTable.bulkActions.published", { count: data.publishProductsToCatalog.length })
+          );
+        },
+      },
+      {
+        label: i18next.t("admin.productTable.bulkActions.makeVisible"),
+        confirmTitle: getTranslation("admin.productTable.bulkActions.makeVisibleTitle", { count: selectedRows.length }),
+        confirmMessage: getTranslation("admin.productTable.bulkActions.makeVisibleMessage", {
+          count: selectedRows.length,
+        }),
+        isDisabled: selectedRows.length === 0,
+        onClick: async () => {
+          const errors = [];
+          const successes = [];
+          // TODO: refactor this loop to use a bulk update mutation that needs to be implemented.
+          for (const productId of selectedRows) {
+            // eslint-disable-next-line no-await-in-loop
+            const { data, error } = await apolloClient.mutate({
+              mutation: updateProduct,
+              variables: {
+                input: {
+                  product: {
+                    isVisible: true,
+                  },
+                  productId,
+                  shopId,
+                },
               },
-              productId,
-              shopId
-            }
+            });
+
+            if (error) errors.push(error);
+            if (data) successes.push(data);
           }
-        });
 
-        if (error) errors.push(error);
-        if (data) successes.push(data);
-      }
+          if (errors.length) {
+            enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
+            return;
+          }
 
-      if (errors.length) {
-        enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
-        return;
-      }
-
-      refetch();
-      enqueueSnackbar(getTranslation(
-        "admin.productTable.bulkActions.makeVisibleSuccess",
-        { count: successes.length }
-      ));
-    }
-  }, {
-    label: i18next.t("admin.productTable.bulkActions.makeHidden"),
-    confirmTitle: getTranslation("admin.productTable.bulkActions.makeHiddenTitle", { count: selectedRows.length }),
-    confirmMessage: getTranslation("admin.productTable.bulkActions.makeHiddenMessage", { count: selectedRows.length }),
-    isDisabled: selectedRows.length === 0,
-    onClick: async () => {
-      const errors = [];
-      const successes = [];
-      // TODO: refactor this loop to use a bulk update mutation that needs to be implemented.
-      for (const productId of selectedRows) {
-        // eslint-disable-next-line no-await-in-loop
-        const { data, error } = await apolloClient.mutate({
-          mutation: updateProduct,
-          variables: {
-            input: {
-              product: {
-                isVisible: false
+          refetch();
+          enqueueSnackbar(
+            getTranslation("admin.productTable.bulkActions.makeVisibleSuccess", { count: successes.length })
+          );
+        },
+      },
+      {
+        label: i18next.t("admin.productTable.bulkActions.makeHidden"),
+        confirmTitle: getTranslation("admin.productTable.bulkActions.makeHiddenTitle", { count: selectedRows.length }),
+        confirmMessage: getTranslation("admin.productTable.bulkActions.makeHiddenMessage", {
+          count: selectedRows.length,
+        }),
+        isDisabled: selectedRows.length === 0,
+        onClick: async () => {
+          const errors = [];
+          const successes = [];
+          // TODO: refactor this loop to use a bulk update mutation that needs to be implemented.
+          for (const productId of selectedRows) {
+            // eslint-disable-next-line no-await-in-loop
+            const { data, error } = await apolloClient.mutate({
+              mutation: updateProduct,
+              variables: {
+                input: {
+                  product: {
+                    isVisible: false,
+                  },
+                  productId,
+                  shopId,
+                },
               },
-              productId,
-              shopId
-            }
+            });
+
+            if (error && error.length) errors.push(error);
+            if (data) successes.push(data);
           }
-        });
 
-        if (error && error.length) errors.push(error);
-        if (data) successes.push(data);
-      }
-
-      if (errors.length) {
-        enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
-        return;
-      }
-
-      refetch();
-      enqueueSnackbar(getTranslation(
-        "admin.productTable.bulkActions.makeHiddenSuccess",
-        { count: successes.length }
-      ));
-    }
-  }, {
-    label: i18next.t("admin.productTable.bulkActions.duplicate"),
-    confirmTitle: getTranslation("admin.productTable.bulkActions.duplicateTitle", { count: selectedRows.length }),
-    confirmMessage: getTranslation("admin.productTable.bulkActions.duplicateMessage", { count: selectedRows.length }),
-    isDisabled: selectedRows.length === 0,
-    onClick: async () => {
-      const { data, error } = await apolloClient.mutate({
-        mutation: cloneProducts,
-        variables: {
-          input: {
-            productIds: selectedRows,
-            shopId
+          if (errors.length) {
+            enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
+            return;
           }
-        }
-      });
 
-      if (error && error.length) {
-        enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
-        return;
-      }
+          refetch();
+          enqueueSnackbar(
+            getTranslation("admin.productTable.bulkActions.makeHiddenSuccess", { count: successes.length })
+          );
+        },
+      },
+      {
+        label: i18next.t("admin.productTable.bulkActions.duplicate"),
+        confirmTitle: getTranslation("admin.productTable.bulkActions.duplicateTitle", { count: selectedRows.length }),
+        confirmMessage: getTranslation("admin.productTable.bulkActions.duplicateMessage", {
+          count: selectedRows.length,
+        }),
+        isDisabled: selectedRows.length === 0,
+        onClick: async () => {
+          const { data, error } = await apolloClient.mutate({
+            mutation: cloneProducts,
+            variables: {
+              input: {
+                productIds: selectedRows,
+                shopId,
+              },
+            },
+          });
 
-      refetch();
-      enqueueSnackbar(getTranslation(
-        "admin.productTable.bulkActions.duplicateSuccess",
-        { count: data.cloneProducts.products.length }
-      ));
-    }
-  }, {
-    label: i18next.t("admin.productTable.bulkActions.archive"),
-    confirmTitle: getTranslation("admin.productTable.bulkActions.archiveTitle", { count: selectedRows.length }),
-    confirmMessage: getTranslation("admin.productTable.bulkActions.archiveMessage", { count: selectedRows.length }),
-    isDisabled: selectedRows.length === 0,
-    onClick: async () => {
-      const { data, error } = await apolloClient.mutate({
-        mutation: archiveProducts,
-        variables: {
-          input: {
-            productIds: selectedRows,
-            shopId
+          if (error && error.length) {
+            enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
+            return;
           }
-        }
-      });
 
-      if (error && error.length) {
-        enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
-        return;
-      }
+          refetch();
+          enqueueSnackbar(
+            getTranslation("admin.productTable.bulkActions.duplicateSuccess", {
+              count: data.cloneProducts.products.length,
+            })
+          );
+        },
+      },
+      {
+        label: i18next.t("admin.productTable.bulkActions.archive"),
+        confirmTitle: getTranslation("admin.productTable.bulkActions.archiveTitle", { count: selectedRows.length }),
+        confirmMessage: getTranslation("admin.productTable.bulkActions.archiveMessage", { count: selectedRows.length }),
+        isDisabled: selectedRows.length === 0,
+        onClick: async () => {
+          const { data, error } = await apolloClient.mutate({
+            mutation: archiveProducts,
+            variables: {
+              input: {
+                productIds: selectedRows,
+                shopId,
+              },
+            },
+          });
 
-      refetch();
-      enqueueSnackbar(getTranslation(
-        "admin.productTable.bulkActions.archiveSuccess",
-        { count: data.archiveProducts.products.length }
-      ));
-    }
-  }], [apolloClient, enqueueSnackbar, isFilterByFileVisible, isTagSelectorVisible, refetch, selectedRows, shopId]);
+          if (error && error.length) {
+            enqueueSnackbar(i18next.t("admin.productTable.bulkActions.error", { variant: "error" }));
+            return;
+          }
+
+          refetch();
+          enqueueSnackbar(
+            getTranslation("admin.productTable.bulkActions.archiveSuccess", {
+              count: data.archiveProducts.products.length,
+            })
+          );
+        },
+      },
+    ],
+    [apolloClient, enqueueSnackbar, isFilterByFileVisible, isTagSelectorVisible, refetch, selectedRows, shopId]
+  );
 
   const classes = useStyles();
   const selectedProducts = selectedRows.length ? `${selectedRows.length} selected` : "";
   const cardTitle = (
     <Fragment>
-      {i18next.t("admin.products")}<span className={classes.selectedProducts}>{selectedProducts}</span>
+      {i18next.t("admin.products")}
+      <span className={classes.selectedProducts}>{selectedProducts}</span>
     </Fragment>
   );
 
@@ -452,26 +481,26 @@ function ProductsTable() {
         selectedProductIds={selectedRows}
         shopId={shopId}
   />*/}
-      { (!isTagSelectorVisible && !isFilterByFileVisible) &&
+      {!isTagSelectorVisible && !isFilterByFileVisible && (
         <Grid item sm={12}>
           <Button color="primary" variant="contained" onClick={handleCreateProduct}>
             {i18next.t("admin.createProduct") || "Create product"}
           </Button>
         </Grid>
-      }
+      )}
       <Grid item sm={12}>
         <Card className={classes.card}>
-         <CardHeader classes={{ root: classes.cardHeader }} title={cardTitle} />
+          <CardHeader classes={{ root: classes.cardHeader }} title={cardTitle} />
           <CardContent>
             <DataTable
               {...dataTableProps}
-              actionMenuProps={{ options }}
+              // actionMenuProps={{ options }}
               isLoading={isLoading}
             />
           </CardContent>
         </Card>
-      </Grid >
-    </Grid >
+      </Grid>
+    </Grid>
   );
 }
 
