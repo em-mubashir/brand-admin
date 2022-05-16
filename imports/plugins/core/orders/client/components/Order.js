@@ -18,8 +18,8 @@ import OrderRefunds from "./OrderRefunds";
 
 const styles = (theme) => ({
   tabs: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 });
 
 /**
@@ -40,18 +40,17 @@ function Order(props) {
       <Helmet title={`Order Details for order reference #${order.referenceId}`} />
       <OrderAppBar order={order} />
       <Grid container spacing={4}>
-
         <Grid item xs={12}>
           <OrderHeader order={order} />
         </Grid>
         <Grid className={classes.tabs} item xs={12}>
           <Tabs value={currentTab} onChange={handleTabChange}>
             <Tab label={i18next.t("fulfillment", "Fulfillment")} />
-            <Tab label={i18next.t("refunds", "Refunds")} />
+            {/* <Tab label={i18next.t("refunds", "Refunds")} /> */}
           </Tabs>
           <Divider />
         </Grid>
-        {currentTab === 0 &&
+        {currentTab === 0 && (
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <OrderCardFulfillmentGroups order={order} />
@@ -60,12 +59,12 @@ function Order(props) {
               <OrderPayments order={order} />
             </Grid>
           </Grid>
-        }
-        {currentTab === 1 &&
+        )}
+        {currentTab === 1 && (
           <Grid item xs={12}>
             <OrderRefunds order={order} />
           </Grid>
-        }
+        )}
       </Grid>
       <DetailDrawer title={i18next.t("orderCard.orderSummary.title", "Order summary")}>
         <Grid container spacing={1}>
@@ -83,7 +82,7 @@ function Order(props) {
 
 Order.propTypes = {
   classes: PropTypes.object,
-  order: PropTypes.object
+  order: PropTypes.object,
 };
 
 export default withStyles(styles, { name: "RuiOrder" })(Order);
